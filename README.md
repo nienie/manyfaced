@@ -36,7 +36,8 @@ manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
 
 ```
     //1s 轮询解析/dir/to/config.properties文件一次。
-    dynamicConfiguration := manyfaced.NewDynamicFileConfiguration([]string{"/dir/to/config.properties"}, time.Millisecond * 100, time.Millisecond * 100, time.Millisecond * 100)    
+    dynamicConfiguration := manyfaced.NewDynamicFileConfiguration([]string{"/dir/to/config.properties"}, 
+        time.Millisecond * 100, time.Millisecond * 100, time.Millisecond * 1000)    
 ```
 
 - 如果需要单独创建配置源。
@@ -95,7 +96,7 @@ func (s *SpecificPollScheduler)Stop() {
 2. 将动态配置源加入manyfaced。
 
 ```
-manyfaced.AddConfiguration(dynamicConfiguration, "config")
+manyfaced.AddNamedConfiguration(dynamicConfiguration, "config")
 
 ```
 

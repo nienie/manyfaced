@@ -49,7 +49,7 @@ manyfaced是一个用Go编写的运行时动态获取最新配置项的库。
    
 ```
 
-目前实现的配置源有：db、localfile和http，zookeeper的配置源由于时间关系没能够来得及实现。
+目前实现的配置源有：db、localfile和http，zookeeper的配置源由于时间关系没能够来得及实现，先占坑，后续再实现。
 
 localfile目前只实现了properties格式的文件的解析。如果要添加其他格式的文件解析，需要如下步骤：
 

@@ -39,7 +39,7 @@ manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
     dynamicConfiguration := manyfaced.NewDynamicFileConfiguration([]string{"/dir/to/config.properties"}, time.Millisecond * 100, time.Millisecond * 100, time.Millisecond * 100)    
 ```
 
-1) 如果需要单独创建配置源。
+- 如果需要单独创建配置源。
 
 示例：
 
@@ -71,7 +71,7 @@ parser.RegisterParser(&TomlFileParser{})
 //这样FileConfigurationSource就可以自动解析toml文件了。
 ```
 
-2) 如果需要单独设置轮询调度器。
+- 如果需要单独设置轮询调度器。
 
 提供抽象的调度器BasePollScheduler 和一个固定周期调度执行的FixedDelayPollScheduler。
 如果FixedDelayPollScheduler 无法满足你的需求，你需要实现PollScheduler接口。

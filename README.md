@@ -30,6 +30,7 @@ manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
 # 使用
 
 1. 设置动态配置源。
+
 动态配置源由配置源（Source）和调度器(Scheduler)组合而成。
 目前提供的动态配置源由DynamicFileConfiguration、DynamicDBConfiguration和DynamicURLConfiguration。
 
@@ -39,6 +40,7 @@ manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
 ```
 
 1) 如果需要单独创建配置源。
+
 示例：
 
 ```
@@ -68,7 +70,9 @@ parser.RegisterParser(&TomlFileParser{})
 
 //这样FileConfigurationSource就可以自动解析toml文件了。
 ```
+
 2) 如果需要单独设置轮询调度器。
+
 提供抽象的调度器BasePollScheduler 和一个固定周期调度执行的FixedDelayPollScheduler。
 如果FixedDelayPollScheduler 无法满足你的需求，你需要实现PollScheduler接口。
 一般来说，你只需要组合继承BasePollScheduler，然后实现Schedule(task func()) 和Stop()两个方法。

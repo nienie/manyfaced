@@ -27,7 +27,7 @@ manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
 
 3. 提供了配置项的高效动态获取，当配置源的内容发生改变时，配置项能够较实时改变，而不需要重启应用程序，也不需要每次都读取配置源。
 
-#使用
+# 使用
 
 1. 设置动态配置源。
 动态配置源由配置源（Source）和调度器(Scheduler)组合而成。
@@ -100,7 +100,7 @@ manyfaced.AddConfiguration(dynamicConfiguration, "config")
 **正确姿势**
 
 ```
-    http.SetTimeout(manyfaced.GetIntProperty("http.timeout", 1000))
+    SetTimeout(manyfaced.GetIntProperty("http.timeout", 1000))
 ```
 
 这样能够每次都取到的http.timeout都是最新的值。
@@ -109,7 +109,7 @@ manyfaced.AddConfiguration(dynamicConfiguration, "config")
 
 ```
     timeout := manyfaced.GetIntProperty("http.timeout", 1000)
-    http.SetTimeout(timeout)
+    SetTimeout(timeout)
 ```
 
 最好不要将manyfaced取到的配置项的值保存到内存变量中。因为这样可能很容易导致

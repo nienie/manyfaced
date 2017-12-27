@@ -18,7 +18,7 @@ manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
 由于本人非常喜爱《The Game Of Throne》这部电视剧；且这个项目是为了让配置项动态地从配置源获取最新的值，在程序运行时表现出不同的值，展现出
 “千面”的特点。所以项目取名为manyfaced。
 
-# 
+# 特点
 
 1. 提供了对所有配置源的抽象，将配置源抽象成两类：轮询的配置源（PolledConfigurationSource）和监视的配置源（WatchedConfigurationSource）。
 所有的配置只要实现这两类的接口，就可以被manyfaced正常使用。
@@ -96,6 +96,7 @@ manyfaced.AddConfiguration(dynamicConfiguration, "config")
 ```
 
 3. 读取配置源的配置项。
+
 **正确姿势**
 
 ```
@@ -103,6 +104,7 @@ manyfaced.AddConfiguration(dynamicConfiguration, "config")
 ```
 
 这样能够每次都取到的http.timeout都是最新的值。
+
 **错误的姿势**
 
 ```

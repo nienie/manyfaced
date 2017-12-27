@@ -119,3 +119,6 @@ manyfaced.AddNamedConfiguration(dynamicConfiguration, "config")
 
 最好不要将manyfaced取到的配置项的值保存到内存变量中。因为这样可能很容易导致
 当配置源改变时，也无法影响到内存变量。
+
+# 联系
+QQ: 525999199@qq.com

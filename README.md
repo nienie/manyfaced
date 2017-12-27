@@ -1,4 +1,8 @@
-#介绍
+manyfaced
+=========
+
+# 介绍
+
 manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
 
 在管理和使用程序的配置的时候，我们会遇到两个问题：
@@ -14,7 +18,8 @@ manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
 由于本人非常喜爱《The Game Of Throne》这部电视剧；且这个项目是为了让配置项动态地从配置源获取最新的值，在程序运行时表现出不同的值，展现出
 “千面”的特点。所以项目取名为manyfaced。
 
-#特点
+# 
+
 1. 提供了对所有配置源的抽象，将配置源抽象成两类：轮询的配置源（PolledConfigurationSource）和监视的配置源（WatchedConfigurationSource）。
 所有的配置只要实现这两类的接口，就可以被manyfaced正常使用。
 
@@ -23,6 +28,7 @@ manyfaced是一个Go用编写的运行时动态获取最新配置项的库。
 3. 提供了配置项的高效动态获取，当配置源的内容发生改变时，配置项能够较实时改变，而不需要重启应用程序，也不需要每次都读取配置源。
 
 #使用
+
 1. 设置动态配置源。
 动态配置源由配置源（Source）和调度器(Scheduler)组合而成。
 目前提供的动态配置源由DynamicFileConfiguration、DynamicDBConfiguration和DynamicURLConfiguration。

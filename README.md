@@ -96,14 +96,12 @@ func (s *SpecificPollScheduler)Schedule(task func()) {
 func (s *SpecificPollScheduler)Stop() {
     //TODO: Add your code
 }
-
 ```
 
 2. 将动态配置源加入manyfaced。
 
 ```
 manyfaced.AddNamedConfiguration(dynamicConfiguration, "config")
-
 ```
 
 3. 读取配置源的配置项。

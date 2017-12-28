@@ -1,6 +1,8 @@
 package source
 
 import (
+    "fmt"
+
     "github.com/nienie/manyfaced/poll"
     "github.com/nienie/manyfaced/parser"
     "github.com/go-fsnotify/fsnotify"
@@ -16,14 +18,14 @@ type WatchedFileConfigurationSource struct {
 
 //NewWatchedFileConfigurationSource ...
 func NewWatchedFileConfigurationSource(configFiles []string) (*WatchedFileConfigurationSource, error) {
+    if configFiles == nil {
+        return nil, fmt.Errorf("invalid parameters, configFiles is nil")
+    }
     watchedFileSource := &WatchedFileConfigurationSource{
         listeners:          make([]poll.WatchedUpdateListener, 0),
         configContents:     make(map[string]map[string]interface{}, 0),
-        configFiles:        make([]string, 0),
+        configFiles:        configFiles,
         stop:               make(chan bool),
-    }
-    if configFiles != nil {
-        watchedFileSource.configFiles = configFiles
     }
     err := watchedFileSource.initialize()
     if err != nil {

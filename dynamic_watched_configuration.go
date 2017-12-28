@@ -14,7 +14,7 @@ type DynamicWatchedConfiguration struct {
 }
 
 //NewDynamicWatchedConfiguration ...
-func NewDynamicWatchedConfiguration(source source.WatchedConfigurationSource) *DynamicWatchedConfiguration {
+func NewDynamicWatchedConfiguration(source source.WatchedConfigurationSource) (*DynamicWatchedConfiguration, error) {
    cfg := &DynamicWatchedConfiguration{
         MapConfiguration:         configuration.NewMapConfiguration(nil),
         propertyUpdater:                    &property.DynamicPropertyUpdater{},
@@ -22,12 +22,12 @@ func NewDynamicWatchedConfiguration(source source.WatchedConfigurationSource) *D
     }
     currentData, err := source.GetCurrentData()
     if err != nil {
-        //TODO: Add Logger
+        return nil, err
     }
     result := poll.NewFullWatchedUpdatedResult(currentData)
     cfg.UpdateConfiguration(result)
     cfg.Source.AddUpdateListener(cfg)
-    return cfg
+    return cfg, nil
 }
 
 //UpdateConfiguration ...

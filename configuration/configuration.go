@@ -1,7 +1,7 @@
 package configuration
 
-//ConfigurationAccessor ...
-type ConfigurationAccessor interface {
+//Accessor ...
+type Accessor interface {
     //AddProperty add a property to the configuration. If it already exists then the value stated
     //here will be added to configuration entry.
     AddProperty(key string, value interface{})
@@ -21,7 +21,7 @@ type ConfigurationAccessor interface {
 
 //Configuration The main Configuration interface.
 type Configuration interface {
-    ConfigurationAccessor
+    Accessor
 
     //Subset returns a decorator configuration containing every key from the current
     //configuration that stats with the specified prefix. The prefix is removed from
@@ -74,11 +74,11 @@ type Configuration interface {
     MustGetString(key string) string
 
     //AddConfigurationListener add a configuration listener.
-    AddConfigurationListener(ConfigurationListener)
+    AddConfigurationListener(Listener)
 
     //RemoveConfigurationListener remove configuration listener.
-    RemoveConfigurationListener(ConfigurationListener)
+    RemoveConfigurationListener(Listener)
 
     //GetConfigurationListeners get all configuration listeners.
-    GetConfigurationListeners() []ConfigurationListener
+    GetConfigurationListeners() []Listener
 }

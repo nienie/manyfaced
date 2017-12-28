@@ -1,14 +1,17 @@
 package poll
 
-type PollEventType int
+//EventType ...
+type EventType int
 
 const (
-    PollEventTypeSuccess = iota
-    PollEventTypeFailure
+    //EventTypeSuccess ...
+    EventTypeSuccess = iota
+    //EventTypeFailure ...
+    EventTypeFailure
 )
 
-//PollListener the listener to be called upon when polling scheduler completes a polling.
-type PollListener interface {
+//Listener the listener to be called upon when polling scheduler completes a polling.
+type Listener interface {
     //HandleEvent this method is called when the listener is invoked after a polling.
-    HandleEvent(eventType PollEventType, lastResult *PolledResult, exception error)
+    HandleEvent(eventType EventType, lastResult *PolledResult, exception error)
 }

@@ -186,7 +186,7 @@ func (c *CompositeConfiguration)IsEmpty() bool {
 }
 
 //AddConfigurationListener ...
-func (c *CompositeConfiguration)AddConfigurationListener(l ConfigurationListener) {
+func (c *CompositeConfiguration)AddConfigurationListener(l Listener) {
     for _, config := range c.configList {
         config.AddConfigurationListener(l)
     }
@@ -194,7 +194,7 @@ func (c *CompositeConfiguration)AddConfigurationListener(l ConfigurationListener
 }
 
 //RemoveConfigurationListener ...
-func (c *CompositeConfiguration)RemoveConfigurationListener(l ConfigurationListener) {
+func (c *CompositeConfiguration)RemoveConfigurationListener(l Listener) {
     for _, config := range c.configList {
         config.RemoveConfigurationListener(l)
     }

@@ -11,16 +11,16 @@ import (
 //MapConfiguration ...
 type MapConfiguration struct {
 	sync.RWMutex
-	configurationAccessor  ConfigurationAccessor
+	configurationAccessor Accessor
 	storage                map[string]interface{}
-	configurationListeners []ConfigurationListener
+	configurationListeners []Listener
 }
 
 //NewMapConfiguration ...
 func NewMapConfiguration(m map[string]interface{}) *MapConfiguration {
 	cfg := &MapConfiguration{
 		storage:                make(map[string]interface{}),
-		configurationListeners: make([]ConfigurationListener, 0),
+		configurationListeners: make([]Listener, 0),
 	}
 	for key, val := range m {
 		cfg.storage[key] = val
@@ -30,14 +30,14 @@ func NewMapConfiguration(m map[string]interface{}) *MapConfiguration {
 }
 
 //AddConfigurationListener ...
-func (c *MapConfiguration) AddConfigurationListener(listener ConfigurationListener) {
+func (c *MapConfiguration) AddConfigurationListener(listener Listener) {
 	if listener != nil {
 		c.configurationListeners = append(c.configurationListeners, listener)
 	}
 }
 
 //RemoveConfigurationListener ...
-func (c *MapConfiguration) RemoveConfigurationListener(listener ConfigurationListener) {
+func (c *MapConfiguration) RemoveConfigurationListener(listener Listener) {
 	if listener != nil {
 		for i, l := range c.configurationListeners {
 			if l == listener {
@@ -49,12 +49,12 @@ func (c *MapConfiguration) RemoveConfigurationListener(listener ConfigurationLis
 }
 
 //GetConfigurationListeners ...
-func (c *MapConfiguration)GetConfigurationListeners() []ConfigurationListener {
+func (c *MapConfiguration)GetConfigurationListeners() []Listener {
 	return c.configurationListeners
 }
 
 //SetConfigurationAccessor ...
-func (c *MapConfiguration) SetConfigurationAccessor(ca ConfigurationAccessor) {
+func (c *MapConfiguration) SetConfigurationAccessor(ca Accessor) {
 	c.configurationAccessor = ca
 }
 
@@ -117,7 +117,7 @@ func (c *MapConfiguration) ClearProperty(key string) {
 //Clear ...
 func (c *MapConfiguration) Clear() {
     c.fireEvent(EventClear, "", nil, true)
-	for key, _ := range c.storage {
+	for key := range c.storage {
 		c.ClearProperty(key)
 	}
 	c.storage = map[string]interface{}{}
@@ -394,7 +394,7 @@ func (c *MapConfiguration) MustGetFloat64(key string) float64 {
 	return val
 }
 
-func (c *MapConfiguration)fireEvent(eventType ConfigurationEventType,
+func (c *MapConfiguration)fireEvent(eventType EventType,
     propName string, propValue interface{}, before bool) {
     event := c.createEvent(eventType, propName, propValue, before)
     for _, listener := range c.configurationListeners {
@@ -402,7 +402,7 @@ func (c *MapConfiguration)fireEvent(eventType ConfigurationEventType,
     }
 }
 
-func (c *MapConfiguration)createEvent(eventType ConfigurationEventType, propName string,
-    propValue interface{}, before bool) *ConfigurationEvent {
+func (c *MapConfiguration)createEvent(eventType EventType, propName string,
+    propValue interface{}, before bool) *Event {
     return NewConfigurationEvent(c, eventType, propName, propValue, before)
 }

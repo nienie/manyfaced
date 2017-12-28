@@ -8,11 +8,13 @@ import (
     "time"
 )
 
+//ParseValue ...
 type ParseValue func(string) (interface{}, error)
 
 // make this a var to overwrite it in a test
 var is32Bit = ^uint(0) == math.MaxUint32
 
+//ParseBool ...
 func ParseBool(stringValue string) (bool, error) {
     for _, t := range []string{"true", "t", "yes", "y", "on", "1"} {
         if strings.ToLower(stringValue) == t {
@@ -24,9 +26,10 @@ func ParseBool(stringValue string) (bool, error) {
             return false, nil
         }
     }
-    return false, fmt.Errorf("%s can not be parsed as bool.", stringValue)
+    return false, fmt.Errorf("%s can not be parsed as bool", stringValue)
 }
 
+//ParseInt ...
 func ParseInt(stringValue string) (int, error) {
     integer, err := strconv.ParseInt(stringValue, 10, 64)
     if err != nil {
@@ -35,6 +38,7 @@ func ParseInt(stringValue string) (int, error) {
     return intRangeCheck(integer)
 }
 
+//ParseUInt ...
 func ParseUInt(stringValue string) (uint, error) {
     integer, err := strconv.ParseUint(stringValue, 10, 64)
     if err != nil {
@@ -43,6 +47,7 @@ func ParseUInt(stringValue string) (uint, error) {
     return uintRangeCheck(integer)
 }
 
+//ParseInt32 ...
 func ParseInt32(stringValue string) (int32, error) {
     integer, err := strconv.ParseInt(stringValue, 10, 64)
     if err != nil {
@@ -51,6 +56,7 @@ func ParseInt32(stringValue string) (int32, error) {
     return int32(integer), nil
 }
 
+//ParseUInt32 ...
 func ParseUInt32(stringValue string) (uint32, error) {
     integer, err := strconv.ParseUint(stringValue, 10, 64)
     if err != nil {
@@ -59,6 +65,7 @@ func ParseUInt32(stringValue string) (uint32, error) {
     return uint32(integer), err
 }
 
+//ParseInt64 ...
 func ParseInt64(stringValue string) (int64, error) {
     integer, err := strconv.ParseInt(stringValue, 10, 64)
     if err != nil {
@@ -67,6 +74,7 @@ func ParseInt64(stringValue string) (int64, error) {
     return integer, nil
 }
 
+//ParseUInt64 ...
 func ParseUInt64(stringValue string) (uint64, error) {
     integer, err := strconv.ParseUint(stringValue, 10, 64)
     if err != nil {
@@ -75,6 +83,7 @@ func ParseUInt64(stringValue string) (uint64, error) {
     return integer, nil
 }
 
+//ParseFloat32 ...
 func ParseFloat32(stringValue string)(float32, error) {
     float, err := strconv.ParseFloat(stringValue, 64)
     if err != nil {
@@ -83,6 +92,7 @@ func ParseFloat32(stringValue string)(float32, error) {
     return float32(float), nil
 }
 
+//ParseFloat64 ...
 func ParseFloat64(stringValue string)(float64, error) {
     float, err := strconv.ParseFloat(stringValue, 64)
     if err != nil {
@@ -91,10 +101,12 @@ func ParseFloat64(stringValue string)(float64, error) {
     return float, nil
 }
 
+//ParseString ...
 func ParseString(stringValue string)(string, error) {
     return stringValue, nil
 }
 
+//ParseTimeDuration ...
 func ParseTimeDuration(stringValue string)(time.Duration, error) {
     return time.ParseDuration(stringValue)
 }

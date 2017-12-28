@@ -19,17 +19,17 @@ type PollScheduler interface {
     Stop()
 
     //AddPollListener ...
-    AddPollListener(l poll.PollListener)
+    AddPollListener(l poll.Listener)
 
     //RemovePollListener ...
-    RemovePollListener(l poll.PollListener)
+    RemovePollListener(l poll.Listener)
 }
 
 //BasePollScheduler this class is responsible for scheduling the periodical polling of a configuration source and applying
 //the polling result to a configuration.
 type BasePollScheduler struct {
     scheduler       PollScheduler
-    listeners       []poll.PollListener
+    listeners       []poll.Listener
     checkPoint      interface{}
     propertyUpdater property.DynamicPropertyUpdater
 }
@@ -45,12 +45,12 @@ func (s *BasePollScheduler)initialLoad(source source.PolledConfigurationSource, 
         return err
     }
     s.checkPoint = result.GetCheckPoint()
-    s.fireEvent(poll.PollEventTypeSuccess, result, nil)
+    s.fireEvent(poll.EventTypeSuccess, result, nil)
     s.propertyUpdater.UpdateProperties(result, config)
     return nil
 }
 
-func (s *BasePollScheduler)fireEvent(eventType poll.PollEventType, result *poll.PolledResult, err error) {
+func (s *BasePollScheduler)fireEvent(eventType poll.EventType, result *poll.PolledResult, err error) {
     for _, listener := range s.listeners {
         listener.HandleEvent(eventType, result, err)
     }
@@ -60,16 +60,16 @@ func (s *BasePollScheduler)getPollingTask(source source.PolledConfigurationSourc
     return func() {
         result, err := source.Poll(false, s.checkPoint)
         if err != nil {
-            s.fireEvent(poll.PollEventTypeFailure, result, err)
+            s.fireEvent(poll.EventTypeFailure, result, err)
             return
         }
-        s.fireEvent(poll.PollEventTypeSuccess, result, nil)
+        s.fireEvent(poll.EventTypeSuccess, result, nil)
         s.checkPoint = result.GetCheckPoint()
         s.propertyUpdater.UpdateProperties(result, config)
     }
 }
 
-//StartingPolling ...
+//StartPolling ...
 func (s *BasePollScheduler)StartPolling(source source.PolledConfigurationSource, config configuration.Configuration) error {
     err := s.initialLoad(source, config)
     if err != nil {
@@ -91,14 +91,14 @@ func (s *BasePollScheduler)Schedule(task func()) {
 }
 
 //AddPollListener ...
-func (s *BasePollScheduler)AddPollListener(l poll.PollListener) {
+func (s *BasePollScheduler)AddPollListener(l poll.Listener) {
     if l != nil {
         s.listeners = append(s.listeners, l)
     }
 }
 
 //RemovePollListener ...
-func (s *BasePollScheduler)RemovePollListener(l poll.PollListener) {
+func (s *BasePollScheduler)RemovePollListener(l poll.Listener) {
     if l != nil {
         for i, listener := range s.listeners {
             if l == listener {

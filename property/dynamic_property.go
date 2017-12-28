@@ -18,8 +18,8 @@ func init() {
     allDynamicProperties = make(map[string]*DynamicProperty)
 }
 
-//PropertyChangedCallback ...
-type PropertyChangedCallback func()
+//ChangedCallback ...
+type ChangedCallback func()
 
 type cachedValue struct {
     isCached  bool
@@ -46,8 +46,8 @@ type DynamicProperty struct {
     propName          string
     stringValue       string
     changedTime       time.Duration
-    callbacks         []PropertyChangedCallback
-    validators        []PropertyChangedValidator
+    callbacks         []ChangedCallback
+    validators        []ChangedValidator
     boolValue         cachedValue
     cachedStringValue cachedValue
     intValue          cachedValue
@@ -89,8 +89,8 @@ func RegisterWithDynamicPropertySupport(support DynamicPropertySupport) {
 func newDynamicProperty(propName string) *DynamicProperty {
     dynamicProperty := &DynamicProperty{
         propName:           propName,
-        callbacks:          make([]PropertyChangedCallback, 0),
-        validators:         make([]PropertyChangedValidator, 0),
+        callbacks:          make([]ChangedCallback, 0),
+        validators:         make([]ChangedValidator, 0),
         boolValue:          cachedValue{
             parse: parser.ParseValue(func(stringValue string)(interface{}, error) {
                 return parser.ParseBool(stringValue)
@@ -225,14 +225,14 @@ func (p *DynamicProperty) GetChangedTimestamp() time.Duration {
 }
 
 //AddCallback ...
-func (p *DynamicProperty)AddCallback(callback PropertyChangedCallback) {
+func (p *DynamicProperty)AddCallback(callback ChangedCallback) {
     if callback != nil {
         p.callbacks = append(p.callbacks, callback)
     }
 }
 
 //AddValidator ...
-func (p *DynamicProperty)AddValidator(validator PropertyChangedValidator) {
+func (p *DynamicProperty)AddValidator(validator ChangedValidator) {
     if validator != nil {
         p.validators = append(p.validators, validator)
     }
@@ -505,7 +505,7 @@ func (p *DynamicProperty)MustGetFloat64() float64 {
     return val
 }
 
-//GetFloat64 ...
+//GetTimeDuration ...
 func (p *DynamicProperty)GetTimeDuration(defaultValue time.Duration) time.Duration {
     value, err := p.durationValue.parse(p.stringValue)
     if err != nil {
@@ -518,7 +518,7 @@ func (p *DynamicProperty)GetTimeDuration(defaultValue time.Duration) time.Durati
     return val
 }
 
-//MustGetFloat64 ...
+//MustGetTimeDuration ...
 func (p *DynamicProperty)MustGetTimeDuration() time.Duration {
     value, err := p.durationValue.parse(p.stringValue)
     if err != nil {

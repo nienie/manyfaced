@@ -1,10 +1,10 @@
 package property
 
-//PropertyListener listener that handles property event notification.
+//Listener listener that handles property event notification.
 //It handles events to add a property, set property, remove property, load and clear of the configuration source.
 //DynamicPropertySupport registers this type listener with a DynamicPropertySupport to receive callbacks on
 //changes so that it can dynamically change a value of a DynamicProperty.
-type PropertyListener interface {
+type Listener interface {
 
     //ConfigurationSourceLoaded notifies the listener about a new source of configuration being added.
     ConfigurationSourceLoaded(source interface{})

@@ -24,7 +24,7 @@ func (updater *DynamicPropertyUpdater)UpdateProperties(result poll.DynamicUpdate
             updater.addOrChangedProperty(key, val, config)
         }
         deletedProps := result.GetDeleted()
-        for key, _ := range deletedProps {
+        for key := range deletedProps {
             updater.deleteProperty(key, config)
         }
         return

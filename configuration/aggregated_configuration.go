@@ -1,5 +1,6 @@
 package configuration
 
+//AggregatedConfiguration ...
 type AggregatedConfiguration interface {
 
     Configuration

@@ -1,18 +1,24 @@
 package configuration
 
-type ConfigurationEventType int
+//EventType ...
+type EventType int
 
 const (
-    EventAddProperty ConfigurationEventType = iota
+	//EventAddProperty ...
+    EventAddProperty EventType = iota
+	//EventClearProperty ...
     EventClearProperty
+	//EventSetProperty ...
     EventSetProperty
+	//EventClear ...
     EventClear
+	//EventConfigurationSourceChanged ...
 	EventConfigurationSourceChanged
 )
 
-//ConfigurationEvent ...
-type ConfigurationEvent struct {
-	EventType     ConfigurationEventType
+//Event ...
+type Event struct {
+	EventType     EventType
 	PropertyName  string
 	PropertyValue interface{}
 	BeforeUpdate  bool
@@ -20,9 +26,9 @@ type ConfigurationEvent struct {
 }
 
 //NewConfigurationEvent ...
-func NewConfigurationEvent(source interface{}, eventType ConfigurationEventType, propertyName string,
-	propertyValue interface{}, beforeUpdate bool) *ConfigurationEvent {
-	return &ConfigurationEvent{
+func NewConfigurationEvent(source interface{}, eventType EventType, propertyName string,
+	propertyValue interface{}, beforeUpdate bool) *Event {
+	return &Event{
 		Source:        source,
 		EventType:     eventType,
 		PropertyName:  propertyName,

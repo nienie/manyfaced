@@ -1,5 +1,6 @@
 package poll
 
+//PolledResult ...
 type PolledResult struct {
     *WatchedUpdateResult
     checkPoint interface{}

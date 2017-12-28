@@ -1,7 +1,7 @@
 package property
 
-//PropertyChangedValidator ...
-type PropertyChangedValidator interface {
+//ChangedValidator ...
+type ChangedValidator interface {
 
     //Validate ...
     Validate(newValue string) error

@@ -5,6 +5,7 @@ import (
     "fmt"
     "time"
 
+    //neglect it~
     _ "github.com/go-sql-driver/mysql"
     "github.com/didi/gendry/scanner"
     "github.com/nienie/manyfaced/poll"

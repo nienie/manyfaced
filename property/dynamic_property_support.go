@@ -16,9 +16,10 @@ type DynamicPropertySupport interface {
 
     //AddConfigurationListener add the property change listener. This is necessary for the DynamicProperty to
     //receive callback once a property is updated in the underlying DynamicPropertySupport.
-    AddConfigurationListener(expandedPropertyListener PropertyListener)
+    AddConfigurationListener(expandedPropertyListener Listener)
 }
 
+//DynamicPropertySupportImpl ...
 type DynamicPropertySupportImpl struct {
     Config    configuration.Configuration
 }
@@ -40,7 +41,7 @@ func (o *DynamicPropertySupportImpl)GetString(key string) string {
 }
 
 //AddConfigurationListener ...
-func (o *DynamicPropertySupportImpl)AddConfigurationListener(propertyListener PropertyListener) {
+func (o *DynamicPropertySupportImpl)AddConfigurationListener(propertyListener Listener) {
     adapter := NewConfigurationListenerAdapter(propertyListener)
     o.Config.AddConfigurationListener(adapter)
 }

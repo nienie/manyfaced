@@ -6,18 +6,18 @@ import (
 
 //ConfigurationListenerAdapter convert PropertyListener to ConfigurationListener
 type ConfigurationListenerAdapter struct {
-    propertyListener    PropertyListener
+    propertyListener Listener
 }
 
 //NewConfigurationListenerAdapter ...
-func NewConfigurationListenerAdapter(propertyListener PropertyListener) *ConfigurationListenerAdapter {
+func NewConfigurationListenerAdapter(propertyListener Listener) *ConfigurationListenerAdapter {
     return &ConfigurationListenerAdapter{
         propertyListener:           propertyListener,
     }
 }
 
 //ConfigurationChanged ...
-func (adapter *ConfigurationListenerAdapter)ConfigurationChanged(event *configuration.ConfigurationEvent) {
+func (adapter *ConfigurationListenerAdapter)ConfigurationChanged(event *configuration.Event) {
     switch event.EventType {
     case configuration.EventAddProperty:
         adapter.propertyListener.AddProperty(event.Source, event.PropertyName, event.PropertyValue, event.BeforeUpdate)
@@ -33,6 +33,6 @@ func (adapter *ConfigurationListenerAdapter)ConfigurationChanged(event *configur
 }
 
 //GetPropertyListener ...
-func (adapter *ConfigurationListenerAdapter) GetPropertyListener() PropertyListener {
+func (adapter *ConfigurationListenerAdapter) GetPropertyListener() Listener {
     return adapter.propertyListener
 }

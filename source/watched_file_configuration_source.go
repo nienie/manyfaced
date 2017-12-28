@@ -175,6 +175,7 @@ func (s *WatchedFileConfigurationSource)RemoveUpdateListener(l poll.WatchedUpdat
     return
 }
 
+//StopWatching ...
 func (s *WatchedFileConfigurationSource)StopWatching() {
     s.stop <- true
 }

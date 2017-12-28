@@ -6,7 +6,9 @@ import (
 )
 
 const (
+    //DefaultInitialDelay ...
     DefaultInitialDelay time.Duration = time.Second
+    //DefaultDelay ...
     DefaultDelay        time.Duration = time.Second
 )
 
@@ -78,6 +80,6 @@ func (s *FixedDelayPollScheduler)Schedule(task func()) {
 }
 
 //Stop ...
-func (scheduler *FixedDelayPollScheduler)Stop() {
-    scheduler.stop <- true
+func (s *FixedDelayPollScheduler)Stop() {
+    s.stop <- true
 }

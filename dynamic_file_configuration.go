@@ -13,10 +13,15 @@ type DynamicFileConfiguration struct {
 }
 
 //NewDynamicFileConfiguration ...
-func NewDynamicFileConfiguration(configFiles []string, pollTimeout time.Duration, interval time.Duration, initialDelay time.Duration) *DynamicFileConfiguration {
+func NewDynamicFileConfiguration(configFiles []string, pollTimeout time.Duration,
+    interval time.Duration, initialDelay time.Duration) (*DynamicFileConfiguration, error) {
     source := source.NewFileConfigurationSource(configFiles, pollTimeout)
     scheduler := scheduler.NewFixedDelayPollScheduler(interval, initialDelay)
-    return &DynamicFileConfiguration{
-        DynamicConfiguration:   NewDynamicConfiguration(source, scheduler),
+    dynamicConfiguration, err := NewDynamicConfiguration(source, scheduler)
+    if err != nil {
+        return nil, err
     }
+    return &DynamicFileConfiguration{
+        DynamicConfiguration:   dynamicConfiguration,
+    }, nil
 }

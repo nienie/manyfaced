@@ -13,11 +13,16 @@ type DynamicURLConfiguration struct {
 }
 
 //NewDynamicURLConfiguration ...
-func NewDynamicURLConfiguration(configUrls []string, interval time.Duration, initialDelay time.Duration) *DynamicURLConfiguration {
+func NewDynamicURLConfiguration(configUrls []string, interval time.Duration,
+    initialDelay time.Duration) (*DynamicURLConfiguration, error) {
     source := source.NewURLConfigurationSource(configUrls)
     scheduler := scheduler.NewFixedDelayPollScheduler(interval, initialDelay)
-    return &DynamicURLConfiguration{
-        DynamicConfiguration:   NewDynamicConfiguration(source, scheduler),
+    dynamicConfiguration, err := NewDynamicConfiguration(source, scheduler)
+    if err != nil {
+        return nil, err
     }
+    return &DynamicURLConfiguration{
+        DynamicConfiguration:   dynamicConfiguration,
+    }, nil
 }
 

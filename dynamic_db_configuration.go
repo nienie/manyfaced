@@ -15,10 +15,14 @@ type DynamicDBConfiguration struct {
 
 //NewDynamicDBConfiguration ...
 func NewDynamicDBConfiguration(dbSource *sql.DB, querySQL string, keyColumnName string, valColumnName string,
-    interval time.Duration, initialDelay time.Duration) *DynamicDBConfiguration {
+    interval time.Duration, initialDelay time.Duration) (*DynamicDBConfiguration, error) {
     source := source.NewDBConfigurationSource(dbSource, querySQL, keyColumnName, valColumnName)
     scheduler := scheduler.NewFixedDelayPollScheduler(interval, initialDelay)
-    return &DynamicDBConfiguration{
-        DynamicConfiguration:   NewDynamicConfiguration(source, scheduler),
+    dynamicConfiguration, err := NewDynamicConfiguration(source, scheduler)
+    if err != nil {
+        return nil, err
     }
+    return &DynamicDBConfiguration{
+        DynamicConfiguration:   dynamicConfiguration,
+    }, nil
 }

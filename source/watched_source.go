@@ -15,4 +15,7 @@ type WatchedConfigurationSource interface {
 
     //GetCurrentData get a snapshot of the latest configuration data.
     GetCurrentData() (map[string]interface{}, error)
+
+    //StopWatching ...
+    StopWatching()
 }

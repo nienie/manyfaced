@@ -15,14 +15,18 @@ type DynamicConfiguration struct {
 }
 
 //NewDynamicConfiguration ...
-func NewDynamicConfiguration(source source.PolledConfigurationSource, scheduler scheduler.PollScheduler) *DynamicConfiguration {
+func NewDynamicConfiguration(source source.PolledConfigurationSource,
+    scheduler scheduler.PollScheduler) (*DynamicConfiguration, error) {
     cfg := &DynamicConfiguration{
         MapConfiguration:     configuration.NewMapConfiguration(nil),
         Source:               source,
         Scheduler:            scheduler,
     }
-    cfg.StartPolling()
-    return cfg
+    err := cfg.StartPolling()
+    if err != nil {
+        return nil, err
+    }
+    return cfg, nil
 }
 
 //StartPolling ...

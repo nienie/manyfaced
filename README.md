@@ -27,6 +27,9 @@ manyfaced是一个用Go编写的运行时动态获取最新配置项的库。
 
 3. 提供了配置项的高效动态获取，当配置源的内容发生改变时，配置项能够较实时改变，而不需要重启应用程序，也不需要每次都读取配置源。
 
+4. 提供了轮询方式的DB(DBConfigurationSource)、本地配置文件(FileConfigurationSource)、HTTP访问(URLConfigurationSource)的配置源的实现；
+提供了监视方式的本地配置文件(WatchedFileConfigurationSource)的配置源。
+
 # 使用
 
 1. 设置动态配置源。
@@ -36,8 +39,12 @@ manyfaced是一个用Go编写的运行时动态获取最新配置项的库。
 
 ```
     //1s 轮询解析/dir/to/config.properties文件一次。
-    dynamicConfiguration := manyfaced.NewDynamicFileConfiguration([]string{"/dir/to/config.properties"}, 
-        time.Millisecond * 100, time.Millisecond * 100, time.Millisecond * 1000)    
+    dynamicConfiguration, err := manyfaced.NewDynamicFileConfiguration([]string{"/dir/to/config.properties"}, 
+        time.Millisecond * 100, time.Millisecond * 100, time.Millisecond * 1000)
+    if err := nil {
+        //TODO: Handle this error
+    }
+    defer dynamicConfiguration.Close()
 ```
 
 - 如果需要单独创建配置源。
@@ -46,7 +53,6 @@ manyfaced是一个用Go编写的运行时动态获取最新配置项的库。
 
 ```
    fileSources := source.NewFileConfigurationSource([]string{"/dir/to/config.propertiers"}, 100 * time.Millisecond)
-   
 ```
 
 目前实现的配置源有：db、localfile和http，zookeeper的配置源由于时间关系没能够来得及实现，先占坑，后续再实现。

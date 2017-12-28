@@ -35,7 +35,7 @@ func (c *DynamicConfiguration)StartPolling() error {
 }
 
 //StopPolling ...
-func (c *DynamicConfiguration)StopPolling() {
+func (c *DynamicConfiguration)Close() {
     if c.Scheduler != nil {
         c.Scheduler.Stop()
     }

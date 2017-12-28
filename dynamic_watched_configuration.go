@@ -35,7 +35,7 @@ func (c *DynamicWatchedConfiguration)UpdateConfiguration(result *poll.WatchedUpd
     c.propertyUpdater.UpdateProperties(result, c)
 }
 
-//StopWatching ...
+//Close ...
 func (c *DynamicWatchedConfiguration)Close() {
     c.Source.StopWatching()
 }

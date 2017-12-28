@@ -55,7 +55,7 @@ func AddNamedConfiguration(config configuration.Configuration, name string) {
     configManager.addNamedConfiguration(config, name)
 }
 
-//RemoveNameConfiguration ...
+//RemoveNamedConfiguration ...
 func RemoveNamedConfiguration(name string) configuration.Configuration {
     return configManager.removeNamedConfiguration(name)
 }

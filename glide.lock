@@ -1,14 +1,20 @@
 hash: 615884d073d9930c329426934bb3e8b94ec869632e1742fa1aa474bd7428a134
-updated: 2017-12-23T18:27:51.772319418+08:00
+updated: 2017-12-28T15:35:04.686222309+08:00
 imports:
 - name: github.com/didi/gendry
-  version: a7a9d192d708f7064fa7b8ce57c411cb6f22dfc6
+  version: a51742e13b36f10a0dfd7d5d5ebaba825a529def
   subpackages:
   - scanner
+- name: github.com/go-fsnotify/fsnotify
+  version: 4da3e2cfbabc9f751898f250b49f2439785783a1
 - name: github.com/go-sql-driver/mysql
   version: 9181e3a86a19bacd63e68d43ae8b7b36320d8092
 - name: github.com/magiconair/properties
   version: d419a98cdbed11a922bf76f257b7c4be79b50e73
+- name: golang.org/x/sys
+  version: 83801418e1b59fb1880e363299581ee543af32ca
+  subpackages:
+  - unix
 - name: google.golang.org/appengine
   version: 9d8544a6b2c7df9cff240fcf92d7b2f59bc13416
   subpackages:

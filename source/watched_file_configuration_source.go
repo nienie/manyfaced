@@ -80,11 +80,9 @@ func (s WatchedFileConfigurationSource)handleWatchEvent(event fsnotify.Event) {
             //TODO: Add Log
             return
         }
-        s.configContents[event.Name] = newConfigContent
         updateResult := poll.NewIncrementalWatchUpdatedResult(newConfigContent, nil, nil)
-        for _, listener := range s.listeners {
-            listener.UpdateConfiguration(updateResult)
-        }
+        s.notifyListeners(updateResult)
+        s.configContents[event.Name] = newConfigContent
     case fsnotify.Write:
         newConfigContent, err := parser.ParseConfigFile(event.Name)
         if err != nil {
@@ -93,19 +91,22 @@ func (s WatchedFileConfigurationSource)handleWatchEvent(event fsnotify.Event) {
         }
         added, changed, deleted := compareUpdateResult(newConfigContent, s.configContents[event.Name])
         updateResult := poll.NewIncrementalWatchUpdatedResult(added, changed, deleted)
-        for _, listener := range s.listeners {
-            listener.UpdateConfiguration(updateResult)
-        }
+        s.notifyListeners(updateResult)
         s.configContents[event.Name] = newConfigContent
     case fsnotify.Remove:
         updateResult := poll.NewIncrementalWatchUpdatedResult(nil, nil, s.configContents[event.Name])
-        for _, listener := range s.listeners {
-            listener.UpdateConfiguration(updateResult)
-        }
+        s.notifyListeners(updateResult)
+        s.configContents[event.Name] = make(map[string]interface{})
     case fsnotify.Rename:
         //Nothing to do
     case fsnotify.Chmod:
         //Nothing to do
+    }
+}
+
+func (s *WatchedFileConfigurationSource)notifyListeners(updateResult *poll.WatchedUpdateResult) {
+    for _, listener := range s.listeners {
+        listener.UpdateConfiguration(updateResult)
     }
 }
 

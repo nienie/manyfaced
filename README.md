@@ -6,7 +6,7 @@ manyfaced
 manyfaced是一个用Go编写的运行时动态获取最新配置项的库。
 
 在管理和使用程序的配置的时候，我们会遇到两个问题：
-1）配置源有种类非常多，可以是本地的配置文件（如yaml, toml, ini等格式的文件），也可以是db/zookeeper/etcd等；
+1）配置源种类非常多，可以是本地的配置文件（如yaml, toml, ini等格式的文件），也可以是db/zookeeper/etcd等；
 也可以通过http/rpc等方式获取。在一个应用程序中，可能会用到好几种配置源，而这些配置源的API都不一样，
 给使用带来不方便。因此，需要对配置源做一种抽象，无论哪种格式的配置源(toml/yaml/ini/db/zookeeper/etcd/http/rpc),
 都提供一种统一的API访问。

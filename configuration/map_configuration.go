@@ -11,7 +11,7 @@ import (
 //MapConfiguration ...
 type MapConfiguration struct {
 	sync.RWMutex
-	configurationAccessor Accessor
+	configurationAccessor  Accessor
 	storage                map[string]interface{}
 	configurationListeners []Listener
 }
@@ -49,7 +49,7 @@ func (c *MapConfiguration) RemoveConfigurationListener(listener Listener) {
 }
 
 //GetConfigurationListeners ...
-func (c *MapConfiguration)GetConfigurationListeners() []Listener {
+func (c *MapConfiguration) GetConfigurationListeners() []Listener {
 	return c.configurationListeners
 }
 
@@ -89,39 +89,39 @@ func (c *MapConfiguration) ContainsKey(key string) bool {
 
 //AddProperty ...
 func (c *MapConfiguration) AddProperty(key string, value interface{}) {
-    c.fireEvent(EventAddProperty, key, value, true)
-    c.RWMutex.Lock()
-    defer c.RWMutex.Unlock()
-    c.storage[key] = value
-    c.fireEvent(EventAddProperty, key, value, false)
+	c.fireEvent(EventAddProperty, key, value, true)
+	c.RWMutex.Lock()
+	defer c.RWMutex.Unlock()
+	c.storage[key] = value
+	c.fireEvent(EventAddProperty, key, value, false)
 }
 
 //SetProperty ...
 func (c *MapConfiguration) SetProperty(key string, value interface{}) {
-    c.fireEvent(EventSetProperty, key, value, true)
+	c.fireEvent(EventSetProperty, key, value, true)
 	c.RWMutex.Lock()
 	defer c.RWMutex.Unlock()
 	c.storage[key] = value
-    c.fireEvent(EventSetProperty, key, value, false)
+	c.fireEvent(EventSetProperty, key, value, false)
 }
 
 //ClearProperty ...
 func (c *MapConfiguration) ClearProperty(key string) {
-    c.fireEvent(EventClearProperty, key, nil, true)
+	c.fireEvent(EventClearProperty, key, nil, true)
 	c.RWMutex.Lock()
 	defer c.RWMutex.Unlock()
 	delete(c.storage, key)
-    c.fireEvent(EventClearProperty, key, nil, false)
+	c.fireEvent(EventClearProperty, key, nil, false)
 }
 
 //Clear ...
 func (c *MapConfiguration) Clear() {
-    c.fireEvent(EventClear, "", nil, true)
+	c.fireEvent(EventClear, "", nil, true)
 	for key := range c.storage {
 		c.ClearProperty(key)
 	}
 	c.storage = map[string]interface{}{}
-    c.fireEvent(EventClear, "", nil, false)
+	c.fireEvent(EventClear, "", nil, false)
 }
 
 //GetProperty ...
@@ -394,15 +394,15 @@ func (c *MapConfiguration) MustGetFloat64(key string) float64 {
 	return val
 }
 
-func (c *MapConfiguration)fireEvent(eventType EventType,
-    propName string, propValue interface{}, before bool) {
-    event := c.createEvent(eventType, propName, propValue, before)
-    for _, listener := range c.configurationListeners {
-        listener.ConfigurationChanged(event)
-    }
+func (c *MapConfiguration) fireEvent(eventType EventType,
+	propName string, propValue interface{}, before bool) {
+	event := c.createEvent(eventType, propName, propValue, before)
+	for _, listener := range c.configurationListeners {
+		listener.ConfigurationChanged(event)
+	}
 }
 
-func (c *MapConfiguration)createEvent(eventType EventType, propName string,
-    propValue interface{}, before bool) *Event {
-    return NewConfigurationEvent(c, eventType, propName, propValue, before)
+func (c *MapConfiguration) createEvent(eventType EventType, propName string,
+	propValue interface{}, before bool) *Event {
+	return NewConfigurationEvent(c, eventType, propName, propValue, before)
 }

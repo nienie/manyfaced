@@ -5,13 +5,13 @@ type EventType int
 
 const (
 	//EventAddProperty ...
-    EventAddProperty EventType = iota
+	EventAddProperty EventType = iota
 	//EventClearProperty ...
-    EventClearProperty
+	EventClearProperty
 	//EventSetProperty ...
-    EventSetProperty
+	EventSetProperty
 	//EventClear ...
-    EventClear
+	EventClear
 	//EventConfigurationSourceChanged ...
 	EventConfigurationSourceChanged
 )

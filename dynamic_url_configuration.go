@@ -1,28 +1,27 @@
 package manyfaced
 
 import (
-    "time"
+	"time"
 
-    "github.com/nienie/manyfaced/source"
-    "github.com/nienie/manyfaced/scheduler"
+	"github.com/nienie/manyfaced/scheduler"
+	"github.com/nienie/manyfaced/source"
 )
 
 //DynamicURLConfiguration ...
 type DynamicURLConfiguration struct {
-    *DynamicConfiguration
+	*DynamicConfiguration
 }
 
 //NewDynamicURLConfiguration ...
 func NewDynamicURLConfiguration(configUrls []string, interval time.Duration,
-    initialDelay time.Duration) (*DynamicURLConfiguration, error) {
-    source := source.NewURLConfigurationSource(configUrls)
-    scheduler := scheduler.NewFixedDelayPollScheduler(interval, initialDelay)
-    dynamicConfiguration, err := NewDynamicConfiguration(source, scheduler)
-    if err != nil {
-        return nil, err
-    }
-    return &DynamicURLConfiguration{
-        DynamicConfiguration:   dynamicConfiguration,
-    }, nil
+	initialDelay time.Duration) (*DynamicURLConfiguration, error) {
+	source := source.NewURLConfigurationSource(configUrls)
+	scheduler := scheduler.NewFixedDelayPollScheduler(interval, initialDelay)
+	dynamicConfiguration, err := NewDynamicConfiguration(source, scheduler)
+	if err != nil {
+		return nil, err
+	}
+	return &DynamicURLConfiguration{
+		DynamicConfiguration: dynamicConfiguration,
+	}, nil
 }
-

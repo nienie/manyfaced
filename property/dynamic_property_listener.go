@@ -1,34 +1,34 @@
 package property
 
 //DynamicPropertyListener ...
-type DynamicPropertyListener struct {}
+type DynamicPropertyListener struct{}
 
 //ConfigurationSourceLoaded ...
-func (l *DynamicPropertyListener)ConfigurationSourceLoaded(source interface{}) {
-    updateAllProperties()
+func (l *DynamicPropertyListener) ConfigurationSourceLoaded(source interface{}) {
+	updateAllProperties()
 }
 
 //AddProperty ...
-func (l *DynamicPropertyListener)AddProperty(source interface{}, name string, value interface{}, beforeUpdate bool) error {
-    return updateProperty(name, value)
+func (l *DynamicPropertyListener) AddProperty(source interface{}, name string, value interface{}, beforeUpdate bool) error {
+	return updateProperty(name, value)
 }
 
 //SetProperty ...
-func (l *DynamicPropertyListener)SetProperty(source interface{}, name string, value interface{}, beforeUpdate bool) error{
-    return updateProperty(name, value)
+func (l *DynamicPropertyListener) SetProperty(source interface{}, name string, value interface{}, beforeUpdate bool) error {
+	return updateProperty(name, value)
 }
 
 //ClearProperty ...
-func (l *DynamicPropertyListener)ClearProperty(source interface{}, name string, value interface{}, beforeUpdate bool) error {
-    if !beforeUpdate {
-        return updateProperty(name, value)
-    }
-    return nil
+func (l *DynamicPropertyListener) ClearProperty(source interface{}, name string, value interface{}, beforeUpdate bool) error {
+	if !beforeUpdate {
+		return updateProperty(name, value)
+	}
+	return nil
 }
 
 //Clear ...
-func (l *DynamicPropertyListener)Clear(source interface{}, beforeUpdate bool) {
-    if !beforeUpdate {
-        updateAllProperties()
-    }
+func (l *DynamicPropertyListener) Clear(source interface{}, beforeUpdate bool) {
+	if !beforeUpdate {
+		updateAllProperties()
+	}
 }

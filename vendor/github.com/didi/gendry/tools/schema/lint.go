@@ -1,8 +1,8 @@
 package schema
 
 import (
-	"unicode"
 	"strings"
+	"unicode"
 )
 
 // lintName returns a different name if it should be different.

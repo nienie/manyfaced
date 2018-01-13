@@ -109,7 +109,10 @@ manyfaced.AddNamedConfiguration(dynamicConfiguration, "config")
 **正确姿势**
 
 ```
-    SetTimeout(manyfaced.GetIntProperty("http.timeout", 1000))
+    //定义动态属性的变量
+    dynamicTimeout := manyfaced.GetIntProperty("http.timeout", 1000)
+    //获取动态属性的值
+    SetTimeout(dynamicTimeout.Get())
 ```
 
 这样能够每次都取到的http.timeout都是最新的值。

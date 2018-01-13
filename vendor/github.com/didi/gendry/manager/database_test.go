@@ -1,10 +1,10 @@
 package manager
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
-	"time"
 	"fmt"
+	"github.com/stretchr/testify/assert"
+	"testing"
+	"time"
 )
 
 func TestConcatDSN_None(t *testing.T) {
@@ -39,7 +39,7 @@ func TestConcatDSN_Time(t *testing.T) {
 func TestConcatDSN_Time_overflow(t *testing.T) {
 	var setting []Setting
 	ass := assert.New(t)
-	setting = append(setting, SetReadTimeout(time.Microsecond), SetTimeout(24 * time.Hour))
+	setting = append(setting, SetReadTimeout(time.Microsecond), SetTimeout(24*time.Hour))
 	ass.Equal("", concatDSN(setting), "duration <1ms or >=24h should be invalid")
 }
 

@@ -120,7 +120,7 @@ manyfaced.AddNamedConfiguration(dynamicConfiguration, "config")
 **错误的姿势**
 
 ```
-    timeout := manyfaced.GetIntProperty("http.timeout", 1000)
+    timeout := manyfaced.GetIntProperty("http.timeout", 1000).Get()
     SetTimeout(timeout)
 ```
 

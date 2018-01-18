@@ -106,7 +106,7 @@ manyfaced.AddNamedConfiguration(dynamicConfiguration, "config")
 
 3. 读取配置源的配置项。
 
-**正确姿势**
+**正确的姿势**
 
 ```
     //定义动态属性的变量
